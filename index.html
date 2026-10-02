@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecnoUnit - Magnitudes y Factores de Conversión (1º Bachillerato)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tech: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#035485',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            accent: '#38bdf8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for rendering LaTeX mathematical equations -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fraction { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 4px; }
+        .fraction .top { border-bottom: 2px solid currentColor; padding: 0 4px; }
+        .fraction .bottom { padding: 0 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-tech-600 text-white rounded-xl shadow-md shadow-tech-500/20">
+                        <i class="fa-solid me-0 fa-atom text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-tech-600 to-indigo-600 dark:from-tech-accent dark:to-indigo-400 bg-clip-text text-transparent">TecnoUnit</span>
+                        <span class="block text-xs text-slate-500 dark:text-slate-400 font-medium">Tecnología e Ingeniería I • 1º Bachillerato</span>
+                    </div>
+                </div>
+
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="#teoria" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition"><i class="fa-solid fa-book-open text-tech-500 mr-1.5"></i> Teoría</a>
+                    <a href="#prefijos" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition"><i class="fa-solid fa-hashtag text-tech-500 mr-1.5"></i> Prefijos</a>
+                    <a href="#simulador" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition"><i class="fa-solid fa-calculator text-tech-500 mr-1.5"></i> Simulador</a>
+                    <a href="#ejercicios" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition"><i class="fa-solid fa-pen-to-square text-tech-500 mr-1.5"></i> Ejercicios</a>
+                </nav>
+
+                <div class="flex items-center gap-2">
+                    <button id="themeToggle" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition" title="Cambiar tema">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                    </button>
+                    <button onclick="window.print()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition hidden sm:flex items-center gap-2 text-sm font-medium" title="Imprimir o Guardar PDF">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Imprimir</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-b from-tech-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900 border-b border-slate-200 dark:border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="max-w-2xl">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-tech-100 text-tech-800 dark:bg-tech-900/60 dark:text-tech-accent border border-tech-200 dark:border-tech-700/50 mb-4">
+                    <i class="fa-solid fa-graduation-cap"></i> Material de Repaso Curricular
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                    Magnitudes Físicas, Sistema Internacional y <span class="bg-gradient-to-r from-tech-600 to-indigo-600 dark:from-tech-accent dark:to-indigo-400 bg-clip-text text-transparent">Factores de Conversión</span>
+                </h1>
+                <p class="mt-3 text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+                    Domina el uso de notación científica, cambio de unidades técnicas y conversiones compuestas esenciales para la resolución de problemas ingenieriles.
+                </p>
+                <div class="mt-6 flex flex-wrap justify-center sm:justify-start gap-3">
+                    <a href="#ejercicios" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-tech-600 hover:bg-tech-700 text-white font-medium shadow-lg shadow-tech-500/25 transition gap-2">
+                        <i class="fa-solid fa-play"></i> Practicar Ejercicios
+                    </a>
+                    <a href="#simulador" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 font-medium transition gap-2">
+                        <i class="fa-solid fa-sliders"></i> Generador de Factores
+                    </a>
+                </div>
+            </div>
+
+            <!-- Score / Progress Widget -->
+            <div class="w-full md:w-auto bg-white dark:bg-slate-800/90 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-xl shadow-slate-200/50 dark:shadow-none min-w-[280px]">
+                <h3 class="text-xs uppercase font-bold text-slate-400 dark:text-slate-500 tracking-wider mb-3">Progreso de Práctica</h3>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-3xl font-extrabold text-tech-600 dark:text-tech-accent" id="scorePercentage">0%</span>
+                    <span class="text-sm font-semibold text-slate-500 dark:text-slate-400" id="scoreFraction">0 / 0</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden mb-4">
+                    <div id="progressBar" class="bg-gradient-to-r from-tech-500 to-indigo-500 h-full w-0 transition-all duration-500"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center border border-slate-100 dark:border-slate-800">
+                        <span class="block text-slate-400">Aciertos</span>
+                        <span class="font-bold text-emerald-600 dark:text-emerald-400 text-base" id="correctCount">0</span>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center border border-slate-100 dark:border-slate-800">
+                        <span class="block text-slate-400">Intentos</span>
+                        <span class="font-bold text-slate-700 dark:text-slate-300 text-base" id="totalCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow space-y-16">
+
+        <!-- SECTION 1: THEORY & SI TABLES -->
+        <section id="teoria" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-2 bg-tech-100 dark:bg-tech-900 text-tech-600 dark:text-tech-accent rounded-lg">
+                    <i class="fa-solid fa-book text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">1. Sistema Internacional de Unidades (SI)</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Magnitudes fundamentales y derivadas en la ingeniería</p>
+                </div>
+            </div>
+
+            <!-- Tab Navigation for Theory -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                <div class="flex border-b border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 overflow-x-auto">
+                    <button onclick="switchTab('fundamentales')" id="tab-fundamentales" class="theory-tab font-semibold text-sm px-6 py-3.5 border-b-2 border-tech-600 text-tech-600 dark:text-tech-accent dark:border-tech-accent flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-ruler-combined"></i> Magnitudes Fundamentales
+                    </button>
+                    <button onclick="switchTab('derivadas')" id="tab-derivadas" class="theory-tab font-medium text-sm text-slate-600 dark:text-slate-400 px-6 py-3.5 border-b-2 border-transparent hover:text-slate-900 dark:hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-gears"></i> Magnitudes Derivadas (Ingeniería)
+                    </button>
+                    <button onclick="switchTab('guia')" id="tab-guia" class="theory-tab font-medium text-sm text-slate-600 dark:text-slate-400 px-6 py-3.5 border-b-2 border-transparent hover:text-slate-900 dark:hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-shuffle"></i> Método de Factores de Conversión
+                    </button>
+                </div>
+
+                <div class="p-6">
+                    <!-- Tab 1: Fundamental Units -->
+                    <div id="content-fundamentales" class="tab-content block">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+                                <thead class="bg-slate-100 dark:bg-slate-900/70 text-slate-900 dark:text-slate-100 font-semibold uppercase text-xs tracking-wider">
+                                    <tr>
+                                        <th class="p-3.5 rounded-l-lg">Magnitud Fundamental</th>
+                                        <th class="p-3.5">Símbolo Magnitud</th>
+                                        <th class="p-3.5">Unidad del SI</th>
+                                        <th class="p-3.5 rounded-r-lg">Símbolo Unidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 dark:divide-slate-700/60">
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Longitud</td><td class="p-3.5 font-mono">$L, l, x$</td><td class="p-3.5">Metro</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">m</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Masa</td><td class="p-3.5 font-mono">$m$</td><td class="p-3.5">Kilogramo</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">kg</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Tiempo</td><td class="p-3.5 font-mono">$t$</td><td class="p-3.5">Segundo</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">s</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Intensidad de Corriente</td><td class="p-3.5 font-mono">$I, i$</td><td class="p-3.5">Amperio</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">A</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Temperatura Termodinámica</td><td class="p-3.5 font-mono">$T$</td><td class="p-3.5">Kelvin</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">K</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Cantidad de Sustancia</td><td class="p-3.5 font-mono">$n$</td><td class="p-3.5">Mol</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">mol</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Intensidad Luminosa</td><td class="p-3.5 font-mono">$I_v$</td><td class="p-3.5">Candela</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">cd</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Derived Units -->
+                    <div id="content-derivadas" class="tab-content hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+                                <thead class="bg-slate-100 dark:bg-slate-900/70 text-slate-900 dark:text-slate-100 font-semibold uppercase text-xs tracking-wider">
+                                    <tr>
+                                        <th class="p-3.5 rounded-l-lg">Magnitud Derivada</th>
+                                        <th class="p-3.5">Unidad SI</th>
+                                        <th class="p-3.5">Símbolo</th>
+                                        <th class="p-3.5 rounded-r-lg">Equivalencia Unidades Base SI</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 dark:divide-slate-700/60">
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Fuerza / Peso</td><td class="p-3.5">Newton</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">N</td><td class="p-3.5 font-mono">$1\text{ N} = 1\text{ kg}\cdot\text{m/s}^2$</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Presión / Esfuerzo</td><td class="p-3.5">Pascal</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">Pa</td><td class="p-3.5 font-mono">$1\text{ Pa} = 1\text{ N/m}^2 = 1\text{ kg}/(\text{m}\cdot\text{s}^2)$</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Trabajo / Energía / Calor</td><td class="p-3.5">Julio</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">J</td><td class="p-3.5 font-mono">$1\text{ J} = 1\text{ N}\cdot\text{m} = 1\text{ kg}\cdot\text{m}^2/\text{s}^2$</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Potencia</td><td class="p-3.5">Vatio</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">W</td><td class="p-3.5 font-mono">$1\text{ W} = 1\text{ J/s} = 1\text{ kg}\cdot\text{m}^2/\text{s}^3$</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Carga Eléctrica</td><td class="p-3.5">Culombio</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">C</td><td class="p-3.5 font-mono">$1\text{ C} = 1\text{ A}\cdot\text{s}$</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Capacidad Eléctrica</td><td class="p-3.5">Faradio</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">F</td><td class="p-3.5 font-mono">$1\text{ F} = 1\text{ C/V} = 1\text{ A}^2\cdot\text{s}^4/(\text{kg}\cdot\text{m}^2)$</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Densidad</td><td class="p-3.5">Kilogramo por $\text{m}^3$</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">kg/m³</td><td class="p-3.5 font-mono">$\text{kg}\cdot\text{m}^{-3}$</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Caudal Volumétrico</td><td class="p-3.5">Metro cúbico por segundo</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">m³/s</td><td class="p-3.5 font-mono">$\text{m}^3\cdot\text{s}^{-1}$</td></tr>
+                                    <tr><td class="p-3.5 font-medium text-slate-900 dark:text-white">Velocidad Angular</td><td class="p-3.5">Radián por segundo</td><td class="p-3.5 font-bold font-mono text-tech-600 dark:text-tech-accent">rad/s</td><td class="p-3.5 font-mono">$\text{s}^{-1}$</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Step-by-Step Factor Method Guide -->
+                    <div id="content-guia" class="tab-content hidden">
+                        <div class="space-y-4 text-slate-600 dark:text-slate-300">
+                            <h3 class="font-bold text-slate-900 dark:text-white text-lg">¿Cómo aplicar Factores de Conversión correctamente?</h3>
+                            <p class="text-sm">Un <strong>factor de conversión</strong> es una fracción igual a la unidad ($1$) que expresa la equivalencia entre dos unidades distintas de una misma magnitud.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
+                                    <span class="inline-block w-7 h-7 rounded-full bg-tech-600 text-white font-bold text-center leading-7 text-xs mb-2">1</span>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Identificar la equivalencia</h4>
+                                    <p class="text-xs">Establece la relación directa entre la unidad origen y destino. Ej: $1\text{ h} = 3600\text{ s}$ ó $1\text{ km} = 10^3\text{ m}$.</p>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
+                                    <span class="inline-block w-7 h-7 rounded-full bg-tech-600 text-white font-bold text-center leading-7 text-xs mb-2">2</span>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Escribir la fracción adecuada</h4>
+                                    <p class="text-xs">Coloca la unidad a simplificar en el denominador (para cancelar con el numerador previo) y la nueva unidad en el numerador.</p>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
+                                    <span class="inline-block w-7 h-7 rounded-full bg-tech-600 text-white font-bold text-center leading-7 text-xs mb-2">3</span>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Simplificar y calcular</h4>
+                                    <p class="text-xs">Tacha las unidades repetidas en numerador y denominador. Multiplica numeradores y divide por denominadores.</p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-tech-50 dark:bg-tech-900/30 border border-tech-200 dark:border-tech-800 rounded-xl text-xs sm:text-sm font-mono overflow-x-auto">
+                                <p class="font-bold text-tech-800 dark:text-tech-accent mb-1">// Ejemplo de Conversión Compuesta (Velocidad de km/h a m/s):</p>
+                                <p class="text-slate-700 dark:text-slate-300">
+                                    $$90\text{ }\frac{\text{km}}{\text{h}} = 90\text{ }\frac{\text{km}}{\text{h}} \cdot \left(\frac{1000\text{ m}}{1\text{ km}}\right) \cdot \left(\frac{1\text{ h}}{3600\text{ s}}\right) = \frac{90 \cdot 1000}{3600}\text{ }\frac{\text{m}}{\text{s}} = 25\text{ m/s}$$
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: SI PREFIXES -->
+        <section id="prefijos" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-2 bg-indigo-100 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 rounded-lg">
+                    <i class="fa-solid fa-hashtag text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">2. Prefijos del Sistema Internacional (Múltiplos y Submúltiplos)</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Notación científica y factores de potencias de 10</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Multiples -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base mb-3 flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Múltiplos (Valores Mayores)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                            <thead class="bg-slate-50 dark:bg-slate-900/60 text-slate-700 dark:text-slate-300 font-semibold uppercase">
+                                <tr>
+                                    <th class="p-2.5">Prefijo</th>
+                                    <th class="p-2.5">Símbolo</th>
+                                    <th class="p-2.5">Factor</th>
+                                    <th class="p-2.5">Valor Numérico</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50">
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Tera</td><td class="p-2.5 font-bold font-mono text-emerald-600">T</td><td class="p-2.5 font-mono">$10^{12}$</td><td class="p-2.5 text-xs font-mono">1 000 000 000 000</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Giga</td><td class="p-2.5 font-bold font-mono text-emerald-600">G</td><td class="p-2.5 font-mono">$10^{9}$</td><td class="p-2.5 text-xs font-mono">1 000 000 000</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Mega</td><td class="p-2.5 font-bold font-mono text-emerald-600">M</td><td class="p-2.5 font-mono">$10^{6}$</td><td class="p-2.5 text-xs font-mono">1 000 000</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Kilo</td><td class="p-2.5 font-bold font-mono text-emerald-600">k</td><td class="p-2.5 font-mono">$10^{3}$</td><td class="p-2.5 text-xs font-mono">1 000</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Hecto</td><td class="p-2.5 font-bold font-mono text-emerald-600">h</td><td class="p-2.5 font-mono">$10^{2}$</td><td class="p-2.5 text-xs font-mono">100</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Deca</td><td class="p-2.5 font-bold font-mono text-emerald-600">da</td><td class="p-2.5 font-mono">$10^{1}$</td><td class="p-2.5 text-xs font-mono">10</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Submultiples -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base mb-3 flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Submúltiplos (Valores Menores)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                            <thead class="bg-slate-50 dark:bg-slate-900/60 text-slate-700 dark:text-slate-300 font-semibold uppercase">
+                                <tr>
+                                    <th class="p-2.5">Prefijo</th>
+                                    <th class="p-2.5">Símbolo</th>
+                                    <th class="p-2.5">Factor</th>
+                                    <th class="p-2.5">Valor Numérico</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50">
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Deci</td><td class="p-2.5 font-bold font-mono text-amber-600">d</td><td class="p-2.5 font-mono">$10^{-1}$</td><td class="p-2.5 text-xs font-mono">0,1</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Centi</td><td class="p-2.5 font-bold font-mono text-amber-600">c</td><td class="p-2.5 font-mono">$10^{-2}$</td><td class="p-2.5 text-xs font-mono">0,01</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Mili</td><td class="p-2.5 font-bold font-mono text-amber-600">m</td><td class="p-2.5 font-mono">$10^{-3}$</td><td class="p-2.5 text-xs font-mono">0,001</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Micro</td><td class="p-2.5 font-bold font-mono text-amber-600">µ</td><td class="p-2.5 font-mono">$10^{-6}$</td><td class="p-2.5 text-xs font-mono">0,000 001</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Nano</td><td class="p-2.5 font-bold font-mono text-amber-600">n</td><td class="p-2.5 font-mono">$10^{-9}$</td><td class="p-2.5 text-xs font-mono">0,000 000 001</td></tr>
+                                <tr><td class="p-2.5 font-semibold text-slate-900 dark:text-white">Pico</td><td class="p-2.5 font-bold font-mono text-amber-600">p</td><td class="p-2.5 font-mono">$10^{-12}$</td><td class="p-2.5 text-xs font-mono">0,000 000 000 001</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: INTERACTIVE CONVERSION FACTOR SIMULATOR -->
+        <section id="simulador" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-2 bg-purple-100 dark:bg-purple-900/60 text-purple-600 dark:text-purple-400 rounded-lg">
+                    <i class="fa-solid fa-calculator text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">3. Simulador Interactivo de Factores de Conversión</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Prueba cualquier cantidad y observa la cadena matemática resultante</p>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-md">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Tipo de Conversión</label>
+                        <select id="simType" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-tech-500 outline-none">
+                            <option value="speed">Velocidad (km/h ↔ m/s)</option>
+                            <option value="density">Densidad (g/cm³ ↔ kg/m³)</option>
+                            <option value="flow">Caudal (L/min ↔ m³/s)</option>
+                            <option value="angular">Velocidad Angular (rpm ↔ rad/s)</option>
+                            <option value="energy">Energía (kWh ↔ J)</option>
+                            <option value="pressure">Presión (bar ↔ Pa)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Cantidad Valor Inicial</label>
+                        <input type="number" id="simValue" value="120" step="any" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-mono focus:ring-2 focus:ring-tech-500 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Sentido de Conversión</label>
+                        <select id="simDirection" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-tech-500 outline-none">
+                            <option value="forward" id="optDirForward">De origen a SI</option>
+                            <option value="backward" id="optDirBackward">De SI a origen</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-end">
+                        <button onclick="calculateSimulation()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl py-2.5 px-4 transition flex items-center justify-center gap-2 shadow-lg shadow-purple-500/20">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Generar Factor
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Simulation Result Box -->
+                <div class="p-6 bg-slate-900 text-white rounded-xl border border-slate-800 font-mono overflow-x-auto shadow-inner">
+                    <div class="text-xs text-slate-400 uppercase tracking-widest mb-2 font-sans font-semibold">Planteamiento Paso a Paso:</div>
+                    <div id="simMathOutput" class="text-base sm:text-lg text-tech-accent py-2">
+                        <!-- Rendered Math Output -->
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-slate-800 text-xs text-slate-400 flex justify-between items-center font-sans">
+                        <span><i class="fa-solid fa-circle-info text-tech-400 mr-1"></i> Resultado en notación estándar y científica.</span>
+                        <span id="simNumericSummary" class="font-bold text-white"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: EXERCISES BATTERY -->
+        <section id="ejercicios" class="scroll-mt-20">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-400 rounded-lg">
+                        <i class="fa-solid fa-pen-to-square text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">4. Batería de Ejercicios Prácticos</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Pone a prueba tus conocimientos con verificación e igualación de factores</p>
+                    </div>
+                </div>
+
+                <!-- Reset Button -->
+                <button onclick="resetAllExercises()" class="self-start sm:self-auto text-xs font-medium px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-rotate-left"></i> Reiniciar Respuestas
+                </button>
+            </div>
+
+            <!-- Difficulty & Category Filter Bar -->
+            <div class="flex flex-wrap gap-2 mb-8 bg-slate-100 dark:bg-slate-800/60 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                <button onclick="filterExercises('all')" class="filter-btn active-filter px-4 py-2 rounded-lg text-xs font-bold transition">Todos (<span id="count-all">0</span>)</button>
+                <button onclick="filterExercises('simples')" class="filter-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 transition">Lineales y Masa</button>
+                <button onclick="filterExercises('prefijos')" class="filter-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 transition">Prefijos y Submúltiplos</button>
+                <button onclick="filterExercises('compuestos')" class="filter-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 transition">Cambios Compuestos</button>
+                <button onclick="filterExercises('ingenieria')" class="filter-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 transition">Energía e Ingeniería</button>
+            </div>
+
+            <!-- Exercise Cards List -->
+            <div id="exercisesContainer" class="space-y-6">
+                <!-- Exercises dynamically rendered by JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center text-xs text-slate-500 dark:text-slate-400">
+            <p>© 2026 TecnoUnit • Recursos Educativos para Bachillerato de Tecnología e Ingeniería.</p>
+            <p class="mt-2 sm:mt-0">Diseñado con Tailwind CSS y soporte de notación matemática MathJax.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Exercise Data Base
+        const exercisesData = [
+            // Category: simples
+            {
+                id: 1,
+                category: 'simples',
+                title: 'Conversión de Longitud Lineal',
+                statement: 'Expresa una longitud de $450\\text{ mm}$ en metros ($\text{m}$) utilizando notación decimal.',
+                unit: 'm',
+                correctValue: 0.45,
+                tolerance: 0.001,
+                hint: 'Recuerda que $1\\text{ m} = 1000\\text{ mm} = 10^3\\text{ mm}$.',
+                procedure: '$$450\\text{ mm} \\cdot \\left(\\frac{1\\text{ m}}{1000\\text{ mm}}\\right) = \\frac{450}{1000}\\text{ m} = 0,45\\text{ m}$$'
+            },
+            {
+                id: 2,
+                category: 'simples',
+                title: 'Conversión de Masa',
+                statement: 'Una masa de $2500\\text{ mg}$ (miligramos) equivale a cuántos kilogramos ($\text{kg}$) en el Sistema Internacional?',
+                unit: 'kg',
+                correctValue: 0.0025,
+                tolerance: 0.00001,
+                hint: 'Usa dos factores: primero de mg a g ($1\\text{ g} = 1000\\text{ mg}$), luego de g a kg ($1\\text{ kg} = 1000\\text{ g}$).',
+                procedure: '$$2500\\text{ mg} \\cdot \\left(\\frac{1\\text{ g}}{1000\\text{ mg}}\\right) \\cdot \\left(\\frac{1\\text{ kg}}{1000\\text{ g}}\\right) = \\frac{2500}{10^6}\\text{ kg} = 0,0025\\text{ kg} = 2,5 \\cdot 10^{-3}\\text{ kg}$$'
+            },
+
+            // Category: prefijos
+            {
+                id: 3,
+                category: 'prefijos',
+                title: 'Potencia Eléctrica en Megavatios',
+                statement: 'Un generador eólico produce una potencia de $3,5\\text{ MW}$ (megavatios). ¿A cuántos vatios ($\text{W}$) equivale?',
+                unit: 'W',
+                correctValue: 3500000,
+                tolerance: 1,
+                hint: 'El prefijo Mega (M) representa una potencia de $10^6$ ($1\\text{ MW} = 1\\cdot 10^6\\text{ W}$).',
+                procedure: '$$3,5\\text{ MW} \\cdot \\left(\\frac{10^6\\text{ W}}{1\\text{ MW}}\\right) = 3,5 \\cdot 10^6\\text{ W} = 3.500.000\\text{ W}$$'
+            },
+            {
+                id: 4,
+                category: 'prefijos',
+                title: 'Capacidad en Picofaradios',
+                statement: 'Un condensador electrónico tiene una capacidad de $470\\text{ pF}$ (picofaradios). Expresa dicho valor en faradios ($\text{F}$) usando notación científica (ej: escribir el número decimal equivalente o notación estándar).',
+                unit: 'F',
+                correctValue: 4.7e-10,
+                tolerance: 1e-12,
+                hint: 'El prefijo pico (p) equivale al factor $10^{-12}$. ($1\\text{ pF} = 10^{-12}\\text{ F}$).',
+                procedure: '$$470\\text{ pF} \\cdot \\left(\\frac{10^{-12}\\text{ F}}{1\\text{ pF}}\\right) = 470 \\cdot 10^{-12}\\text{ F} = 4,7 \\cdot 10^{-10}\\text{ F} = 0,00000000047\\text{ F}$$'
+            },
+            {
+                id: 5,
+                category: 'prefijos',
+                title: 'Frecuencia de Procesador',
+                statement: 'La CPU de un microcontrolador opera a $2,4\\text{ GHz}$ (gigahertzios). ¿A cuántos Hz equivale?',
+                unit: 'Hz',
+                correctValue: 2400000000,
+                tolerance: 10,
+                hint: 'El prefijo Giga (G) representa $10^9$ Hz.',
+                procedure: '$$2,4\\text{ GHz} \\cdot \\left(\\frac{10^9\\text{ Hz}}{1\\text{ GHz}}\\right) = 2,4 \\cdot 10^9\\text{ Hz} = 2.400.000.000\\text{ Hz}$$'
+            },
+
+            // Category: compuestos
+            {
+                id: 6,
+                category: 'compuestos',
+                title: 'Velocidad Lineal de Ensayo',
+                statement: 'Un vehículo autónomo circula a $108\\text{ km/h}$. ¿A cuántos metros por segundo ($\text{m/s}$) equivale esta velocidad?',
+                unit: 'm/s',
+                correctValue: 30,
+                tolerance: 0.01,
+                hint: 'Aplica dos factores simultáneos: $1\\text{ km} = 1000\\text{ m}$ y $1\\text{ h} = 3600\\text{ s}$.',
+                procedure: '$$108\\text{ }\\frac{\\text{km}}{\\text{h}} \\cdot \\left(\\frac{1000\\text{ m}}{1\\text{ km}}\\right) \\cdot \\left(\\frac{1\\text{ h}}{3600\\text{ s}}\\right) = \\frac{108000}{3600}\\text{ }\\frac{\\text{m}}{\\text{s}} = 30\\text{ m/s}$$'
+            },
+            {
+                id: 7,
+                category: 'compuestos',
+                title: 'Densidad del Acero Estructural',
+                statement: 'La densidad de una aleación de acero es $7,85\\text{ g/cm}^3$. Expresa esta densidad en la unidad del SI ($\text{kg/m}^3$).',
+                unit: 'kg/m³',
+                correctValue: 7850,
+                tolerance: 1,
+                hint: 'Ten cuidado con las unidades cúbicas: $1\\text{ m}^3 = (10^2\\text{ cm})^3 = 10^6\\text{ cm}^3$.',
+                procedure: '$$7,85\\text{ }\\frac{\\text{g}}{\\text{cm}^3} \\cdot \\left(\\frac{1\\text{ kg}}{1000\\text{ g}}\\right) \\cdot \\left(\\frac{10^6\\text{ cm}^3}{1\\text{ m}^3}\\right) = \\frac{7,85 \\cdot 10^6}{1000}\\text{ }\\frac{\\text{kg}}{\\text{m}^3} = 7850\\text{ kg/m}^3$$'
+            },
+            {
+                id: 8,
+                category: 'compuestos',
+                title: 'Caudal en Tubería Hidráulica',
+                statement: 'Una bomba hidráulica impulsa un caudal de aceite de $180\\text{ L/min}$ (litros por minuto). ¿Cuál es su caudal equivalente en la unidad del SI ($\text{m}^3/\text{s}$)?',
+                unit: 'm³/s',
+                correctValue: 0.003,
+                tolerance: 0.0001,
+                hint: 'Recuerda que $1\\text{ m}^3 = 1000\\text{ L}$ y $1\\text{ min} = 60\\text{ s}$.',
+                procedure: '$$180\\text{ }\\frac{\\text{L}}{\\text{min}} \\cdot \\left(\\frac{1\\text{ m}^3}{1000\\text{ L}}\\right) \\cdot \\left(\\frac{1\\text{ min}}{60\\text{ s}}\\right) = \\frac{180}{60000}\\text{ }\\frac{\\text{m}^3}{\\text{s}} = 0,003\\text{ m}^3/\\text{s} = 3 \\cdot 10^{-3}\\text{ m}^3/\\text{s}$$'
+            },
+            {
+                id: 9,
+                category: 'compuestos',
+                title: 'Velocidad Angular de Motor',
+                statement: 'Un motor eléctrico gira a un régimen de $3000\\text{ rpm}$ (revoluciones por minuto). Convierte esta velocidad angular a radianes por segundo ($\text{rad/s}$). (Usa $\\pi \\approx 3,1416$).',
+                unit: 'rad/s',
+                correctValue: 314.16,
+                tolerance: 0.5,
+                hint: 'Una vuelta completa o revolución equivale a $2\\pi\\text{ rad}$ ($2 \\cdot 3,1416 \\approx 6,2832\\text{ rad}$). $1\\text{ min} = 60\\text{ s}$.',
+                procedure: '$$3000\\text{ }\\frac{\\text{rev}}{\\text{min}} \\cdot \\left(\\frac{2\\pi\\text{ rad}}{1\\text{ rev}}\\right) \\cdot \\left(\\frac{1\\text{ min}}{60\\text{ s}}\\right) = \\frac{3000 \\cdot 2\\pi}{60}\\text{ }\\frac{\\text{rad}}{\\text{s}} = 100\\pi\\text{ rad/s} \\approx 314,16\\text{ rad/s}$$'
+            },
+
+            // Category: ingenieria
+            {
+                id: 10,
+                category: 'ingenieria',
+                title: 'Conversión Energética Comercial',
+                statement: 'El recibo de la luz indica un consumo de $12\\text{ kWh}$ (kilovatios-hora). ¿A cuántos Julios ($\text{J}$) equivale esta cantidad energética?',
+                unit: 'J',
+                correctValue: 43200000,
+                tolerance: 100,
+                hint: 'Sustituye kilo ($10^3\\text{ W}$), expresa $\\text{W} = \\text{J/s}$ y pasa las horas a segundos ($1\\text{ h} = 3600\\text{ s}$).',
+                procedure: '$$12\\text{ kWh} = 12 \\cdot (1000\\text{ W}) \\cdot (3600\\text{ s}) = 12 \\cdot 1000\\text{ }\\frac{\\text{J}}{\\text{s}} \\cdot 3600\\text{ s} = 43.200.000\\text{ J} = 4,32 \\cdot 10^7\\text{ J}$$'
+            },
+            {
+                id: 11,
+                category: 'ingenieria',
+                title: 'Presión en Circuito Neumático',
+                statement: 'Un compresor industrial trabaja a una presión de $6\\text{ bar}$. ¿A cuántos pascales ($\text{Pa}$) equivale sabiendo que $1\\text{ bar} = 10^5\\text{ Pa}$?',
+                unit: 'Pa',
+                correctValue: 600000,
+                tolerance: 1,
+                hint: 'Utiliza la relación directa $1\\text{ bar} = 100.000\\text{ Pa}$.',
+                procedure: '$$6\\text{ bar} \\cdot \\left(\\frac{10^5\\text{ Pa}}{1\\text{ bar}}\\right) = 6 \\cdot 10^5\\text{ Pa} = 600.000\\text{ Pa}$$'
+            },
+            {
+                id: 12,
+                category: 'ingenieria',
+                title: 'Potencia Mecánica de Motor Termico',
+                statement: 'El motor de un coche ofrece una potencia de $150\\text{ CV}$ (Caballos de Vapor). ¿Cuál es su potencia expresada en vatios ($\text{W}$)? Sabiendo que $1\\text{ CV} \\approx 735,5\\text{ W}$.',
+                unit: 'W',
+                correctValue: 110325,
+                tolerance: 10,
+                hint: 'Multiplica los $150\\text{ CV}$ por la equivalencia de $1\\text{ CV} = 735,5\\text{ W}$.',
+                procedure: '$$150\\text{ CV} \\cdot \\left(\\frac{735,5\\text{ W}}{1\\text{ CV}}\\right) = 110.325\\text{ W} = 110,325\\text{ kW}$$'
+            }
+        ];
+
+        // State variables
+        let userAnswers = {};
+        let currentFilter = 'all';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderExercises();
+            updateFilterCounts();
+            calculateSimulation();
+
+            // Theme toggle listener
+            document.getElementById('themeToggle').addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+            });
+
+            // Simulator update listeners
+            document.getElementById('simType').addEventListener('change', updateSimDirectionOptions);
+            document.getElementById('simDirection').addEventListener('change', calculateSimulation);
+            document.getElementById('simValue').addEventListener('input', calculateSimulation);
+        });
+
+        // Tab Switcher Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.theory-tab').forEach(el => {
+                el.classList.remove('border-tech-600', 'text-tech-600', 'dark:text-tech-accent', 'dark:border-tech-accent', 'font-semibold');
+                el.classList.add('border-transparent', 'text-slate-600', 'dark:text-slate-400', 'font-medium');
+            });
+
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            activeTab.classList.remove('border-transparent', 'text-slate-600', 'dark:text-slate-400', 'font-medium');
+            activeTab.classList.add('border-tech-600', 'text-tech-600', 'dark:text-tech-accent', 'dark:border-tech-accent', 'font-semibold');
+            
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // Filter Exercises Logic
+        function filterExercises(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-tech-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-600', 'dark:text-slate-400');
+            });
+            event.target.classList.add('bg-tech-600', 'text-white', 'shadow-md');
+            event.target.classList.remove('text-slate-600', 'dark:text-slate-400');
+
+            renderExercises();
+        }
+
+        function updateFilterCounts() {
+            document.getElementById('count-all').textContent = exercisesData.length;
+        }
+
+        function renderExercises() {
+            const container = document.getElementById('exercisesContainer');
+            container.innerHTML = '';
+
+            const filtered = currentFilter === 'all' 
+                ? exercisesData 
+                : exercisesData.filter(ex => ex.category === currentFilter);
+
+            filtered.forEach((ex) => {
+                const isAnswered = userAnswers[ex.id] !== undefined;
+                const answerState = userAnswers[ex.id];
+
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm transition hover:shadow-md";
+                card.id = `exercise-card-${ex.id}`;
+
+                card.innerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider ${getCategoryBadgeClass(ex.category)}">
+                                ${getCategoryName(ex.category)}
+                            </span>
+                            <h3 class="font-bold text-slate-900 dark:text-white text-base">Ejercicio ${ex.id}: ${ex.title}</h3>
+                        </div>
+                        <span class="text-xs text-slate-400 font-mono">ID: #00${ex.id}</span>
+                    </div>
+
+                    <p class="text-slate-700 dark:text-slate-300 text-sm mb-4 leading-relaxed">${ex.statement}</p>
+
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-4">
+                        <div class="relative flex-grow max-w-xs">
+                            <input type="number" step="any" id="input-ex-${ex.id}" 
+                                value="${answerState ? answerState.val : ''}"
+                                ${isAnswered ? 'disabled' : ''}
+                                placeholder="Tu respuesta..." 
+                                class="w-full bg-slate-50 dark:bg-slate-900 border ${isAnswered ? (answerState.isCorrect ? 'border-emerald-500 bg-emerald-50/20' : 'border-rose-500 bg-rose-50/20') : 'border-slate-300 dark:border-slate-700'} rounded-xl px-3.5 py-2.5 text-sm font-mono focus:ring-2 focus:ring-tech-500 outline-none">
+                            <span class="absolute right-3 top-2.5 text-xs font-bold text-slate-400 font-mono pointer-events-none">${ex.unit}</span>
+                        </div>
+
+                        ${!isAnswered ? `
+                            <button onclick="checkAnswer(${ex.id})" class="px-5 py-2.5 bg-tech-600 hover:bg-tech-700 text-white font-semibold text-sm rounded-xl transition shadow-md shadow-tech-500/20 flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-check"></i> Comprobar
+                            </button>
+                        ` : `
+                            <button onclick="retryExercise(${ex.id})" class="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-700 dark:text-slate-200 font-semibold text-sm rounded-xl transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-rotate-right"></i> Reintentar
+                            </button>
+                        `}
+
+                        <button onclick="toggleHint(${ex.id})" class="px-3 py-2.5 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> Pista
+                        </button>
+                    </div>
+
+                    <!-- Hint Box -->
+                    <div id="hint-${ex.id}" class="hidden mb-4 p-3.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-xl text-xs text-amber-800 dark:text-amber-300 flex items-start gap-2">
+                        <i class="fa-solid fa-info-circle text-amber-500 mt-0.5"></i>
+                        <div><strong>Pista:</strong> ${ex.hint}</div>
+                    </div>
+
+                    <!-- Feedback & Procedure Box -->
+                    <div id="feedback-${ex.id}" class="${isAnswered ? 'block' : 'hidden'} mt-4">
+                        ${isAnswered ? getFeedbackHTML(ex, answerState) : ''}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function getCategoryBadgeClass(cat) {
+            switch(cat) {
+                case 'simples': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300';
+                case 'prefijos': return 'bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300';
+                case 'compuestos': return 'bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300';
+                case 'ingenieria': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300';
+                default: return 'bg-slate-100 text-slate-800';
+            }
+        }
+
+        function getCategoryName(cat) {
+            switch(cat) {
+                case 'simples': return 'Lineal y Masa';
+                case 'prefijos': return 'Prefijos SI';
+                case 'compuestos': return 'Compuesto';
+                case 'ingenieria': return 'Ingeniería';
+                default: return 'General';
+            }
+        }
+
+        function toggleHint(id) {
+            const hintBox = document.getElementById(`hint-${id}`);
+            hintBox.classList.toggle('hidden');
+        }
+
+        function checkAnswer(id) {
+            const input = document.getElementById(`input-ex-${id}`);
+            const val = parseFloat(input.value.replace(',', '.'));
+
+            if (isNaN(val)) {
+                alert("Por favor, introduce un número válido antes de comprobar.");
+                return;
+            }
+
+            const ex = exercisesData.find(e => e.id === id);
+            const isCorrect = Math.abs(val - ex.correctValue) <= ex.tolerance;
+
+            userAnswers[id] = { val: val, isCorrect: isCorrect };
+            
+            updateScoreboard();
+            renderExercises();
+        }
+
+        function retryExercise(id) {
+            delete userAnswers[id];
+            updateScoreboard();
+            renderExercises();
+        }
+
+        function resetAllExercises() {
+            userAnswers = {};
+            updateScoreboard();
+            renderExercises();
+        }
+
+        function getFeedbackHTML(ex, answerState) {
+            const isCorrect = answerState.isCorrect;
+            return `
+                <div class="p-4 rounded-xl border ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60' : 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/60'}">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid ${isCorrect ? 'fa-circle-check text-emerald-600 dark:text-emerald-400' : 'fa-circle-xmark text-rose-600 dark:text-rose-400'} text-lg"></i>
+                        <span class="font-bold text-sm ${isCorrect ? 'text-emerald-800 dark:text-emerald-300' : 'text-rose-800 dark:text-rose-300'}">
+                            ${isCorrect ? '¡Respuesta Correcta!' : 'Respuesta Incorrecta'}
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 mb-3">
+                        ${isCorrect ? 'Has aplicado los factores de conversión de forma impecable.' : `El valor esperado era aprox. <strong>${ex.correctValue} ${ex.unit}</strong>. Revisa la resolución paso a paso:`}
+                    </p>
+                    <div class="p-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-xs sm:text-sm font-mono overflow-x-auto">
+                        <span class="block text-slate-400 text-[10px] uppercase font-sans mb-1">Procedimiento Paso a Paso:</span>
+                        <div class="text-tech-600 dark:text-tech-accent">${ex.procedure}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateScoreboard() {
+            const answeredKeys = Object.keys(userAnswers);
+            const totalAnswered = answeredKeys.length;
+            const correctCount = answeredKeys.filter(k => userAnswers[k].isCorrect).length;
+            const pct = totalAnswered > 0 ? Math.round((correctCount / exercisesData.length) * 100) : 0;
+
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('totalCount').textContent = totalAnswered;
+            document.getElementById('scoreFraction').textContent = `${correctCount} / ${exercisesData.length}`;
+            document.getElementById('scorePercentage').textContent = `${pct}%`;
+            document.getElementById('progressBar').style.width = `${pct}%`;
+        }
+
+        function updateSimDirectionOptions() {
+            const type = document.getElementById('simType').value;
+            const optFwd = document.getElementById('optDirForward');
+            const optBwd = document.getElementById('optDirBackward');
+
+            switch(type) {
+                case 'speed':
+                    optFwd.textContent = 'km/h ➔ m/s';
+                    optBwd.textContent = 'm/s ➔ km/h';
+                    break;
+                case 'density':
+                    optFwd.textContent = 'g/cm³ ➔ kg/m³';
+                    optBwd.textContent = 'kg/m³ ➔ g/cm³';
+                    break;
+                case 'flow':
+                    optFwd.textContent = 'L/min ➔ m³/s';
+                    optBwd.textContent = 'm³/s ➔ L/min';
+                    break;
+                case 'angular':
+                    optFwd.textContent = 'rpm ➔ rad/s';
+                    optBwd.textContent = 'rad/s ➔ rpm';
+                    break;
+                case 'energy':
+                    optFwd.textContent = 'kWh ➔ Julios (J)';
+                    optBwd.textContent = 'Julios (J) ➔ kWh';
+                    break;
+                case 'pressure':
+                    optFwd.textContent = 'bar ➔ Pascales (Pa)';
+                    optBwd.textContent = 'Pascales (Pa) ➔ bar';
+                    break;
+            }
+            calculateSimulation();
+        }
+
+        function calculateSimulation() {
+            const type = document.getElementById('simType').value;
+            const dir = document.getElementById('simDirection').value;
+            const val = parseFloat(document.getElementById('simValue').value) || 0;
+
+            let latex = '';
+            let res = 0;
+            let resUnit = '';
+
+            if (type === 'speed') {
+                if (dir === 'forward') {
+                    res = val * (1000 / 3600);
+                    resUnit = 'm/s';
+                    latex = `$$${val}\\text{ }\\frac{\\text{km}}{\\text{h}} \\cdot \\left(\\frac{1000\\text{ m}}{1\\text{ km}}\\right) \\cdot \\left(\\frac{1\\text{ h}}{3600\\text{ s}}\\right) = \\frac{${val} \\cdot 1000}{3600}\\text{ }\\frac{\\text{m}}{\\text{s}} = ${res.toFixed(4)}\\text{ m/s}$$`;
+                } else {
+                    res = val * (3600 / 1000);
+                    resUnit = 'km/h';
+                    latex = `$$${val}\\text{ }\\frac{\\text{m}}{\\text{s}} \\cdot \\left(\\frac{1\\text{ km}}{1000\\text{ m}}\\right) \\cdot \\left(\\frac{3600\\text{ s}}{1\\text{ h}}\\right) = \\frac{${val} \\cdot 3600}{1000}\\text{ }\\frac{\\text{km}}{\\text{h}} = ${res.toFixed(4)}\\text{ km/h}$$`;
+                }
+            } else if (type === 'density') {
+                if (dir === 'forward') {
+                    res = val * 1000;
+                    resUnit = 'kg/m³';
+                    latex = `$$${val}\\text{ }\\frac{\\text{g}}{\\text{cm}^3} \\cdot \\left(\\frac{1\\text{ kg}}{1000\\text{ g}}\\right) \\cdot \\left(\\frac{10^6\\text{ cm}^3}{1\\text{ m}^3}\\right) = ${val} \\cdot 1000\\text{ }\\frac{\\text{kg}}{\\text{m}^3} = ${res}\\text{ kg/m}^3$$`;
+                } else {
+                    res = val / 1000;
+                    resUnit = 'g/cm³';
+                    latex = `$$${val}\\text{ }\\frac{\\text{kg}}{\\text{m}^3} \\cdot \\left(\\frac{1000\\text{ g}}{1\\text{ kg}}\\right) \\cdot \\left(\\frac{1\\text{ m}^3}{10^6\\text{ cm}^3}\\right) = \\frac{${val}}{1000}\\text{ }\\frac{\\text{g}}{\\text{cm}^3} = ${res}\\text{ g/cm}^3$$`;
+                }
+            } else if (type === 'flow') {
+                if (dir === 'forward') {
+                    res = val / 60000;
+                    resUnit = 'm³/s';
+                    latex = `$$${val}\\text{ }\\frac{\\text{L}}{\\text{min}} \\cdot \\left(\\frac{1\\text{ m}^3}{1000\\text{ L}}\\right) \\cdot \\left(\\frac{1\\text{ min}}{60\\text{ s}}\\right) = \\frac{${val}}{60000}\\text{ }\\frac{\\text{m}^3}{\\text{s}} = ${res.toExponential(4)}\\text{ m}^3/\\text{s}$$`;
+                } else {
+                    res = val * 60000;
+                    resUnit = 'L/min';
+                    latex = `$$${val}\\text{ }\\frac{\\text{m}^3}{\\text{s}} \\cdot \\left(\\frac{1000\\text{ L}}{1\\text{ m}^3}\\right) \\cdot \\left(\\frac{60\\text{ s}}{1\\text{ min}}\\right) = ${val} \\cdot 60000\\text{ }\\frac{\\text{L}}{\\text{min}} = ${res}\\text{ L/min}$$`;
+                }
+            } else if (type === 'angular') {
+                if (dir === 'forward') {
+                    res = (val * 2 * Math.PI) / 60;
+                    resUnit = 'rad/s';
+                    latex = `$$${val}\\text{ rpm} \\cdot \\left(\\frac{2\\pi\\text{ rad}}{1\\text{ rev}}\\right) \\cdot \\left(\\frac{1\\text{ min}}{60\\text{ s}}\\right) = \\frac{${val} \\cdot 2\\pi}{60}\\text{ }\\frac{\\text{rad}}{\\text{s}} = ${res.toFixed(4)}\\text{ rad/s}$$`;
+                } else {
+                    res = (val * 60) / (2 * Math.PI);
+                    resUnit = 'rpm';
+                    latex = `$$${val}\\text{ }\\frac{\\text{rad}}{\\text{s}} \\cdot \\left(\\frac{1\\text{ rev}}{2\\pi\\text{ rad}}\\right) \\cdot \\left(\\frac{60\\text{ s}}{1\\text{ min}}\\right) = \\frac{${val} \\cdot 60}{2\\pi}\\text{ rpm} = ${res.toFixed(2)}\\text{ rpm}$$`;
+                }
+            } else if (type === 'energy') {
+                if (dir === 'forward') {
+                    res = val * 3600000;
+                    resUnit = 'J';
+                    latex = `$$${val}\\text{ kWh} \\cdot \\left(\\frac{1000\\text{ W}}{1\\text{ kW}}\\right) \\cdot \\left(\\frac{3600\\text{ s}}{1\\text{ h}}\\right) = ${val} \\cdot 3,6 \\cdot 10^6\\text{ J} = ${res.toExponential(4)}\\text{ J}$$`;
+                } else {
+                    res = val / 3600000;
+                    resUnit = 'kWh';
+                    latex = `$$${val}\\text{ J} \\cdot \\left(\\frac{1\\text{ kWh}}{3,6 \\cdot 10^6\\text{ J}}\\right) = \\frac{${val}}{3600000}\\text{ kWh} = ${res.toFixed(6)}\\text{ kWh}$$`;
+                }
+            } else if (type === 'pressure') {
+                if (dir === 'forward') {
+                    res = val * 100000;
+                    resUnit = 'Pa';
+                    latex = `$$${val}\\text{ bar} \\cdot \\left(\\frac{10^5\\text{ Pa}}{1\\text{ bar}}\\right) = ${val} \\cdot 100.000\\text{ Pa} = ${res.toExponential(4)}\\text{ Pa}$$`;
+                } else {
+                    res = val / 100000;
+                    resUnit = 'bar';
+                    latex = `$$${val}\\text{ Pa} \\cdot \\left(\\frac{1\\text{ bar}}{10^5\\text{ Pa}}\\right) = \\frac{${val}}{100000}\\text{ bar} = ${res}\\text{ bar}$$`;
+                }
+            }
+
+            document.getElementById('simMathOutput').innerHTML = latex;
+            document.getElementById('simNumericSummary').textContent = `Resultado: ${res.toLocaleString()} ${resUnit}`;
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+    </script>
+</body>
+</html>
